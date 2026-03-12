@@ -115,126 +115,139 @@ export const StarBackground = ({
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-
-    const renderer = new Renderer({
-      dpr: pixelRatio,
-      depth: false,
-      alpha: true,
-    });
-    const gl = renderer.gl;
-    container.appendChild(gl.canvas);
-    gl.clearColor(0, 0, 0, 0);
-
-    const camera = new Camera(gl, { fov: 15 });
-    camera.position.set(0, 0, cameraDistance);
-
-    const resize = () => {
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-      renderer.setSize(width, height);
-      camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
-    };
-    window.addEventListener('resize', resize, false);
-    resize();
-
-    const handleScroll = () => {
-        scrollRef.current = window.scrollY;
-    };
-
-    if (moveParticlesOnScroll) {
-      window.addEventListener('scroll', handleScroll);
-    }
-
-    const count = particleCount;
-    const positions = new Float32Array(count * 3);
-    const randoms = new Float32Array(count * 4);
-    const colors = new Float32Array(count * 3);
-    const palette = particleColors && particleColors.length > 0 ? particleColors : defaultColors;
-
-    for (let i = 0; i < count; i++) {
-      let x, y, z, len;
-      do {
-        x = Math.random() * 2 - 1;
-        y = Math.random() * 2 - 1;
-        z = Math.random() * 2 - 1;
-        len = x * x + y * y + z * z;
-      } while (len > 1 || len === 0);
-      const r = Math.cbrt(Math.random());
-      positions.set([x * r, y * r, z * r], i * 3);
-      randoms.set([Math.random(), Math.random(), Math.random(), Math.random()], i * 4);
-      const col = hexToRgb(palette[Math.floor(Math.random() * palette.length)]);
-      colors.set(col, i * 3);
-    }
-
-    const geometry = new Geometry(gl, {
-      position: { size: 3, data: positions },
-      random: { size: 4, data: randoms },
-      color: { size: 3, data: colors },
-    });
-
-    const program = new Program(gl, {
-      vertex,
-      fragment,
-      uniforms: {
-        uTime: { value: 0 },
-        uSpread: { value: particleSpread },
-        uScroll: { value: 0 }, 
-        uBaseSize: { value: particleBaseSize * pixelRatio },
-        uSizeRandomness: { value: sizeRandomness },
-        uAlphaParticles: { value: alphaParticles ? 1 : 0 },
-      },
-      transparent: true,
-      depthTest: false,
-    });
-
-    const particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
-
-    let animationFrameId;
-    let lastTime = performance.now();
-    let elapsed = 0;
-
-    const update = (t) => {
-      animationFrameId = requestAnimationFrame(update);
-      const delta = t - lastTime;
-      lastTime = t;
-      elapsed += delta * speed;
-
-      program.uniforms.uTime.value = elapsed * 0.001;
-
-      if (moveParticlesOnScroll) {
-
-        program.uniforms.uScroll.value = (scrollRef.current * scrollSpeed * 0.01);
-      }
     
-      particles.position.x = 0;
-      particles.position.y = 0;
-      particles.position.z = 0;
+    let animationFrameId;
+    let gl;
 
-      if (!disableRotation) {
-        particles.rotation.x = Math.sin(elapsed * 0.0002) * 0.1;
-        particles.rotation.y = Math.cos(elapsed * 0.0005) * 0.15;
-        particles.rotation.z += 0.01 * speed;
-      }
+    try {
+      const renderer = new Renderer({
+        dpr: pixelRatio,
+        depth: false,
+        alpha: true,
+      });
+      gl = renderer.gl;
+      container.appendChild(gl.canvas);
+      gl.clearColor(0, 0, 0, 0);
 
-      renderer.render({ scene: particles, camera });
-    };
+      const camera = new Camera(gl, { fov: 15 });
+      camera.position.set(0, 0, cameraDistance);
 
-    animationFrameId = requestAnimationFrame(update);
+      const resize = () => {
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        renderer.setSize(width, height);
+        camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
+      };
+      window.addEventListener('resize', resize, false);
+      resize();
 
-    return () => {
-      window.removeEventListener('resize', resize);
+      const handleScroll = () => {
+          scrollRef.current = window.scrollY;
+      };
+
       if (moveParticlesOnScroll) {
-        window.removeEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll);
       }
-      cancelAnimationFrame(animationFrameId);
-      if (container.contains(gl.canvas)) {
-        container.removeChild(gl.canvas);
+
+      const count = particleCount;
+      const positions = new Float32Array(count * 3);
+      const randoms = new Float32Array(count * 4);
+      const colors = new Float32Array(count * 3);
+      const palette = particleColors && particleColors.length > 0 ? particleColors : defaultColors;
+
+      for (let i = 0; i < count; i++) {
+        let x, y, z, len;
+        do {
+          x = Math.random() * 2 - 1;
+          y = Math.random() * 2 - 1;
+          z = Math.random() * 2 - 1;
+          len = x * x + y * y + z * z;
+        } while (len > 1 || len === 0);
+        const r = Math.cbrt(Math.random());
+        positions.set([x * r, y * r, z * r], i * 3);
+        randoms.set([Math.random(), Math.random(), Math.random(), Math.random()], i * 4);
+        const col = hexToRgb(palette[Math.floor(Math.random() * palette.length)]);
+        colors.set(col, i * 3);
       }
-    };
+
+      const geometry = new Geometry(gl, {
+        position: { size: 3, data: positions },
+        random: { size: 4, data: randoms },
+        color: { size: 3, data: colors },
+      });
+
+      const program = new Program(gl, {
+        vertex,
+        fragment,
+        uniforms: {
+          uTime: { value: 0 },
+          uSpread: { value: particleSpread },
+          uScroll: { value: 0 }, 
+          uBaseSize: { value: particleBaseSize * pixelRatio },
+          uSizeRandomness: { value: sizeRandomness },
+          uAlphaParticles: { value: alphaParticles ? 1 : 0 },
+        },
+        transparent: true,
+        depthTest: false,
+      });
+
+      const particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
+
+      let lastTime = performance.now();
+      let elapsed = 0;
+
+      const update = (t) => {
+        animationFrameId = requestAnimationFrame(update);
+        const delta = t - lastTime;
+        lastTime = t;
+        elapsed += delta * speed;
+
+        program.uniforms.uTime.value = elapsed * 0.001;
+
+        if (moveParticlesOnScroll) {
+
+          program.uniforms.uScroll.value = (scrollRef.current * scrollSpeed * 0.01);
+        }
+      
+        particles.position.x = 0;
+        particles.position.y = 0;
+        particles.position.z = 0;
+
+        if (!disableRotation) {
+          particles.rotation.x = Math.sin(elapsed * 0.0002) * 0.1;
+          particles.rotation.y = Math.cos(elapsed * 0.0005) * 0.15;
+          particles.rotation.z += 0.01 * speed;
+        }
+
+        renderer.render({ scene: particles, camera });
+      };
+
+      animationFrameId = requestAnimationFrame(update);
+
+      return () => {
+        window.removeEventListener('resize', resize);
+        if (moveParticlesOnScroll) {
+          window.removeEventListener('scroll', handleScroll);
+        }
+        cancelAnimationFrame(animationFrameId);
+        if (container && gl && container.contains(gl.canvas)) {
+          container.removeChild(gl.canvas);
+        }
+      };
+    } catch (error) {
+      console.error("Failed to initialize StarBackground:", error);
+      return () => {
+        cancelAnimationFrame(animationFrameId);
+         if (container && gl && container.contains(gl.canvas)) {
+          container.removeChild(gl.canvas);
+        }
+      };
+    }
   }, [
     particleCount,
     particleSpread,
     speed,
+    particleColors,
     moveParticlesOnScroll,
     scrollSpeed,
     alphaParticles,
