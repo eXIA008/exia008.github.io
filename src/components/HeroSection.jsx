@@ -7,8 +7,8 @@ export const HeroSection = () => <section id="hero" className="relative min-h-sc
             <div className="space-y-6 pr-2 w-2xl text-left z-10">
                 <div className="text-5xl md:text-6xl font-bold tracking-light">
                     <h1 className="opacity-0 animate-fade-in">Haloo,</h1>
-                    <h1 className="opacity-0 animate-fade-in-delay1">I'm
-                        <span className="text-primary opacity-0 animate-fade-in-delay1"> Daisaq</span>
+                    <h1 className="opacity-0 animate-fade-in [animation-delay:0.2s]">I'm
+                        <span className="text-primary opacity-0 animate-fade-in [animation-delay:0.2s]"> Daisaq</span>
                     </h1>
                 </div>
 
@@ -27,7 +27,7 @@ export const HeroSection = () => <section id="hero" className="relative min-h-sc
                 </div>
 
                 <div className="pt-4 opacity-0 animate-fade-in [animation-delay:0.8s]">
-                    <a href="#projects" className="cosmic-button">
+                    <a href="#projects" className="cosmic-button w-fit flex">
                         View My Work
                     </a>
                 </div>

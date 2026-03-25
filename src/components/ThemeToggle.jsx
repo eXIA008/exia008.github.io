@@ -3,30 +3,30 @@ import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 
 export const ThemeToggle = () => {
-    const [isDarkMode, setIsDarkMode] = useState(false)
+    const [isDarkMode, setIsDarkMode] = useState(true)
 
     // ini bakal ngedetect kira-kira theme terakhir yang ke store di local itu apa biar di apply di pagenya kalo buka di newtab
     useEffect (() => {
         const storedTheme = localStorage.getItem("theme")
-        if (storedTheme === "dark") {
-            setIsDarkMode(true)
-            document.documentElement.classList.add("dark")
-        } else {
-            localStorage.setItem("theme", "light")
+        if (storedTheme === "light") {
             setIsDarkMode(false)
+            document.documentElement.classList.add("light")
+        } else {
+            localStorage.setItem("theme", "dark")
+            setIsDarkMode(true)
         }
     
     }, []) 
 
     const toggleTheme = () => {
-        if (isDarkMode) {
-            document.documentElement.classList.remove("dark")
-            localStorage.setItem("theme", "light")
-            setIsDarkMode(false)
-        } else {
-            document.documentElement.classList.add("dark")
+        if (!isDarkMode) {
+            document.documentElement.classList.remove("light")
             localStorage.setItem("theme", "dark")
             setIsDarkMode(true)
+        } else {
+            document.documentElement.classList.add("light")
+            localStorage.setItem("theme", "light")
+            setIsDarkMode(false)
         }
     }
     return <button onClick={toggleTheme} 
