@@ -62,7 +62,7 @@ export const ProjectSection = () => {
                         </div>
                         <div className="p-6 text-left">
                             <div className="flex flex-wrap gap-2 mb-4">
-                                {favProjects.tags.map((tags, index) => {
+                                {projects.tags.map((tags, index) => {
                                     if (index < maxTagsCount) {
                                         return (<span key={index} className="px-2 py-1 text-xs border font-medium rounded-full bg-secondary text-secondary-foreground">
                                             {tags}

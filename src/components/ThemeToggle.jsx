@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils"
 export const ThemeToggle = () => {
     const [isDarkMode, setIsDarkMode] = useState(true)
 
-    // ini bakal ngedetect kira-kira theme terakhir yang ke store di local itu apa biar di apply di pagenya kalo buka di newtab
     useEffect (() => {
         const storedTheme = localStorage.getItem("theme")
         if (storedTheme === "light") {
