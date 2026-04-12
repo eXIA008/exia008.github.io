@@ -10,6 +10,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<Home />} />
+          <Route path="/project" element={<Project />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

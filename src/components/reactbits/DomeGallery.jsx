@@ -7,6 +7,7 @@ const DEFAULT_IMAGES = [
   { Icon: <StackIcon name="python" />, alt: 'python' },
   { Icon: <StackIcon name="go" />, alt: 'golang' },
   { Icon: <StackIcon name="java" />, alt: 'java' },
+  { Icon: <StackIcon name="php" />, alt: 'php' },
   { Icon: <StackIcon name="js" />, alt: 'javascript' },
   { Icon: <StackIcon name="colab" />, alt: 'colab' },
   { Icon: <StackIcon name="flask" />, alt: 'flask' },
@@ -64,7 +65,6 @@ function buildItems(pool, seg) {
     }
 
     let { Icon, icon } = image;
-    // Jika Icon adalah elemen React (seperti <StackIcon />), perlakukan sebagai instance (icon)
     if (Icon && React.isValidElement(Icon)) {
       icon = Icon;
       Icon = null;
@@ -73,8 +73,8 @@ function buildItems(pool, seg) {
     return {
       src: image.src || '',
       alt: image.alt || '',
-      Icon: Icon ?? null, // component ref
-      icon: icon ?? null, // legacy: element instance
+      Icon: Icon ?? null,
+      icon: icon ?? null,
       href: image.href ?? null,
       color: image.color ?? null
     };
@@ -885,13 +885,13 @@ export default function DomeGallery({
           />
 
           <div
-            className="absolute left-0 right-0 top-0 h-[120px] z-5 pointer-events-none rotate-180"
+            className="absolute left-0 right-0 top-0 h-30 z-5 pointer-events-none rotate-180"
             style={{
               background: `linear-gradient(to bottom, transparent, var(--overlay-blur-color, ${overlayBlurColor}))`
             }}
           />
           <div
-            className="absolute left-0 right-0 bottom-0 h-[120px] z-[5] pointer-events-none"
+            className="absolute left-0 right-0 bottom-0 h-30 z-5 pointer-events-none"
             style={{
               background: `linear-gradient(to bottom, transparent, var(--overlay-blur-color, ${overlayBlurColor}))`
             }}

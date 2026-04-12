@@ -1,6 +1,6 @@
-import { ExternalLink, Github, ArrowRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 
-const projects = [
+const favProjects = [
     {
         id: 1,
         title: "Telkomedika Online Reservation",
@@ -33,7 +33,7 @@ const projects = [
         title: "Portfolio Website",
         description: "Personal portfolio Website.",
         image: "/projects/project4.png",
-        tags: ["React", "Vite", "TailwindCSS", "Express"],
+        tags: ["ReactJS", "Vite", "TailwindCSS", "React Bits"],
         demo: "#",
         githubUrl: "/#hero",
     }
@@ -55,14 +55,14 @@ export const ProjectSection = () => {
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {projects.map((projects, key) => (
+                {favProjects.map((projects, key) => (
                     <div key={key} className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover gradient-border">
                         <div className="h-48 overflow-hidden">
                             <img src={projects.image} alt={projects.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                         </div>
                         <div className="p-6 text-left">
                             <div className="flex flex-wrap gap-2 mb-4">
-                                {projects.tags.map((tags, index) => {
+                                {favProjects.tags.map((tags, index) => {
                                     if (index < maxTagsCount) {
                                         return (<span key={index} className="px-2 py-1 text-xs border font-medium rounded-full bg-secondary text-secondary-foreground">
                                             {tags}
