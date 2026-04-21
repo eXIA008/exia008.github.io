@@ -10,8 +10,8 @@ export const TechSection = () => {
         My <span className="text-primary">Current Tech Stack</span>
       </h2>
 
-      <p className="text-left text-muted-foreground text-lg max-w-2xl mb-12 leading-relaxed">
-        This is the current tools and language that i use.
+      <p className="text-left text-muted-foreground text-lg mb-12 leading-relaxed">
+        This is the current tools and language that i use to build my projects.
       </p>
 
       <div className="relative w-full h-125 flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl overflow-hidden">
