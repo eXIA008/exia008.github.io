@@ -26,10 +26,10 @@ export const ProjectSection = () => {
                                 </div>
                                 <div className="p-6 text-left">
                                     <div className="flex flex-wrap gap-2 mb-4">
-                                        {projects.tags.map((tags, index) => {
+                                        {projects.stack.map((stack, index) => {
                                             if (index < maxTagsCount) {
                                                 return (<span key={index} className="px-2 py-1 text-xs border font-medium rounded-full bg-secondary text-secondary-foreground">
-                                                    {tags}
+                                                    {stack}
                                                 </span>)
                                             } else {
                                                 return (<span key={index} className="px-2 py-1 text-xs border font-medium rounded-full bg-secondary text-secondary-foreground">
@@ -44,8 +44,8 @@ export const ProjectSection = () => {
                                     <p className="text-muted-foreground text-sm mb-4">
                                         {projects.desc}
                                     </p>
-                                    <a className="text-foreground/80 hover:text-primary transition-all duration-300" target={projects.id == 4 ? "" : "_blank"} href={projects.githubUrl} >
-                                        {(projects.githubUrl != "#" && projects.id != 4) ? "View Project" : projects.id == 4 ? "You're Here!" : ""}
+                                    <a className="text-foreground/80 hover:text-primary transition-all duration-300" target={projects.id == 4 ? "" : "_blank"} href={projects.url} >
+                                        {(projects.url != "#" && projects.id != 4) ? "View Project" : projects.id == 4 ? "You're Here!" : ""}
                                     </a>
                                 </div>
                             </div>
