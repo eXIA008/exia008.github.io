@@ -1,11 +1,11 @@
 import { ArrowRight } from "lucide-react"
-import { projects } from "../data/contents"
+import { projects } from "../data/projects"
 
 export const ProjectSection = () => {
 
-    const maxTagsCount = 5;
+    const maxStackCount = 5;
 
-    return <section id="projects" className="relative py-24 z-10 bg-transparent items-center justify-center">
+    return <section id="featured-projects" className="relative py-24 z-10 bg-transparent items-center justify-center">
         <div className="container mx-auto max-w-5xl">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-left">
                 Featured<span className="text-primary"> Projects</span>
@@ -27,7 +27,7 @@ export const ProjectSection = () => {
                                 <div className="p-6 text-left">
                                     <div className="flex flex-wrap gap-2 mb-4">
                                         {projects.stack.map((stack, index) => {
-                                            if (index < maxTagsCount) {
+                                            if (index < maxStackCount) {
                                                 return (<span key={index} className="px-2 py-1 text-xs border font-medium rounded-full bg-secondary text-secondary-foreground">
                                                     {stack}
                                                 </span>)
@@ -55,7 +55,7 @@ export const ProjectSection = () => {
                 })}
             </div>
             <div className="text-center mt-12">
-                <a className="cosmic-button w-fit flex items-center mx-auto gap-2" target="_blank" href="https://github.com/eXIA008">
+                <a className="cosmic-button w-fit flex items-center mx-auto gap-2" href="/projects">
                     Check my other Projects <ArrowRight size={16} />
                 </a>
             </div>

@@ -27,7 +27,7 @@ export const HeroSection = () => <section id="hero" className="relative min-h-sc
                 </div>
 
                 <div className="pt-4 opacity-0 animate-fade-in [animation-delay:0.8s]">
-                    <a href="#projects" className="cosmic-button w-fit flex">
+                    <a href="#featured-projects" className="cosmic-button w-fit flex">
                         View My Work
                     </a>
                 </div>

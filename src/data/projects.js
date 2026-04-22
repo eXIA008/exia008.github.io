@@ -34,5 +34,25 @@ export const projects = [
         stack: ["React", "Vite", "JavaScript", "TailwindCSS"],
         url: "/#hero",
         featured: true,
+    },
+    {
+        id: 5,
+        title: "BMI Classification with KNN and GA",
+        desc: "Machine Learning model to classify Nutritional Status based \
+        \ on BMI using K-Nearest Neighbor and Genetic Algorithm.",
+        image: "/projects/bmi-knn.png",
+        stack: ["ML", "Google Colab"],
+        url: "https://github.com/eXIA008/bmi-with-knn",
+        featured: false,
+    },
+    {
+        id: 6,
+        title: "Fuzzy Logic Model Evaluation",
+        desc: "Fuzzy Logic Model Evaluation on Heart Disease Dataset written manually \
+        \ without library.",
+        image: "/projects/fuzzy-heart.png",
+        stack: ["Fuzzy", "Google Colab"],
+        url: "https://github.com/eXIA008/fuzzy-evaluation",
+        featured: false,
     }
 ]
