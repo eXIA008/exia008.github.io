@@ -1,7 +1,17 @@
+import { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { projects } from "../data/projects"
 
 export const ProjectsCard = () => {
-    const maxStackCount = 5;
+    const maxStackCount = 5
+
+    const [currentPage, setCurrentPage] = useState(1)
+    const itemsPerPage = 6
+    const totalPages = Math.ceil(projects.length / itemsPerPage);
+
+    const lastIndex = currentPage * itemsPerPage
+    const firstIndex = lastIndex - itemsPerPage
+    const currentProjects = projects.slice(firstIndex, lastIndex)
 
     return (
         <div className="relative py-28 md:py-24 z-10 bg-transparent justify-center items-center">
@@ -12,8 +22,8 @@ export const ProjectsCard = () => {
                     </h1>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {projects.map((projects, key) => (
-                        <div key={key} className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover gradient-border flex flex-col h-full opacity-0 animate-fade-in" style={{ animationDelay: `${(key * 0.15) + 0.1}s` }}>
+                    {currentProjects.map((projects, key) => (
+                        <div key={key} className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover gradient-border flex flex-col h-full opacity-0 animate-fade-in" style={{ animationDelay: `${(key * 0.2) + 0.1}s` }}>
                             <div className="h-48 overflow-hidden shrink-0">
                                 <img src={projects.image} alt={projects.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                             </div>
@@ -42,6 +52,21 @@ export const ProjectsCard = () => {
                             </div>
                         </div>
                     ))}
+                </div>
+                <div className="text-lg space-x-6 mt-16 flex flex-cols justify-center">
+                    <button onClick={() => setCurrentPage((p) => p - 1)} disabled={currentPage === 1}>
+                        <ChevronLeft />
+                    </button>
+                    <div>
+                        {Array.from({ length: totalPages }, (_, i) => (
+                            <button key={i} onClick={() => setCurrentPage(i + 1)} style={{fontWeight: currentPage === i + 1 ? "bold" : "normal",margin: "0 6px",}}>
+                                {i + 1}
+                            </button>
+                        ))}
+                    </div>
+                    <button onClick={() => setCurrentPage((p) => p + 1)}  disabled={currentPage === totalPages}>
+                        <ChevronRight />
+                    </button>
                 </div>
             </div>
         </div>
