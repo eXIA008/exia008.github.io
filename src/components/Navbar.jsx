@@ -36,10 +36,9 @@ export const Navbar = () => {
     }, [lastScrollY])
 
     const isActive = (href) => {
-        const currentPath = location.pathname + location.hash
-        if (href === "/#hero" && location.pathname === "/" && location.hash === "") {
-            return true
-        }
+        const hashPath = location.href ?? ""
+        const currentPath = location.pathname + hashPath
+
         return currentPath === href
     }
 
@@ -54,7 +53,9 @@ export const Navbar = () => {
                             <span className="text-glow text-foreground">daisaqha</span>.
                         </span>
                     </a>
+
                     {/* desktop nav */}
+
                     <div className="hidden md:flex space-x-8">
                         {navItems.map((item, key) => (
                             <a key={key} href={item.href}
@@ -79,7 +80,7 @@ export const Navbar = () => {
                 "transition-all duration-300 md:hidden",
                 isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
             )}>
-                <div className="flex flex-col space-y-8 text-3xl">
+                <div className="flex flex-col space-y-8 text-5xl">
                     {navItems.map((item, key) => (
                         <a key={key} href={item.href}
                             className={cn("text-foreground/80 hover:text-primary font-bold transition-all duration-300",

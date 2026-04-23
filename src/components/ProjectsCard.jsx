@@ -11,7 +11,7 @@ export const ProjectsCard = () => {
                         This is my <span className="text-primary">Projects </span>Collection.
                     </h1>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {projects.map((projects, key) => (
                         <div key={key} className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover gradient-border flex flex-col h-full opacity-0 animate-fade-in" style={{ animationDelay: `${(key * 0.15) + 0.1}s` }}>
                             <div className="h-48 overflow-hidden shrink-0">
