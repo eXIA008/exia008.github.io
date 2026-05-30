@@ -18,16 +18,16 @@ export const ProjectsCard = () => {
             <div className="container mx-auto max-w-7xl">
                 <div className="text-left text-3xl md:text-4xl font-bold tracking-light mb-10">
                     <h1 className="text-foreground opacity-0 animate-fade-in">
-                        This is my <span className="text-primary">Projects </span>Collection.
+                        My <span className="text-primary">Projects </span>Collection.
                     </h1>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {currentProjects.map((projects, key) => (
-                        <div key={key} className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover gradient-border flex flex-col h-full opacity-0 animate-fade-in" style={{ animationDelay: `${(key * 0.2) + 0.1}s` }}>
+                        <div key={key} className="group bg-card rounded-2xl overflow-hidden shadow-xs card-hover gradient-border flex flex-col h-full opacity-0 animate-fade-in" style={{ animationDelay: `${(key * 0.2) + 0.1}s` }}>
                             <div className="h-48 overflow-hidden shrink-0">
-                                <img src={projects.image} alt={projects.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                <img src={projects.image} alt={projects.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-103" />
                             </div>
-                            <div className="p-6 text-left flex flex-col grow">
+                            <div className="p-5 text-left flex flex-col grow">
                                 <div className="flex flex-wrap gap-2 mb-4">
                                     {projects.stack.map((stack, index) => {
                                         if (index < maxStackCount) {
@@ -42,11 +42,12 @@ export const ProjectsCard = () => {
                                     })}
                                 </div>
                                 <h3 className="text-xl font-semibold mb-2">
-                                    {projects.title != "" ? projects.title : "Coming Soon"}
+                                    <a href={(projects.url != "#" && projects.id != 4) ? "View Project" : projects.id == 4 ? "You're Here!" : ""}> {projects.title != "" ? projects.title : "Coming Soon"} </a>
                                 </h3>
                                 <div className="mt-auto">
-                                    <a className="inline-block text-foreground/80 hover:text-primary transition-all duration-300" target={projects.id == 4 ? "" : "_blank"} href={projects.url} >
+                                    <a className="inline-block text-foreground/80 font-semibold hover:text-primary hover: transition-all duration-300" target={projects.id == 4 ? "" : "_blank"} href={projects.url} >
                                         {(projects.url != "#" && projects.id != 4) ? "View Project" : projects.id == 4 ? "You're Here!" : ""}
+                                        <span class="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
                                     </a>
                                 </div>
                             </div>
@@ -55,7 +56,7 @@ export const ProjectsCard = () => {
                 </div>
                 <div className="text-lg space-x-6 mt-16 flex flex-cols justify-center">
                     <button onClick={() => setCurrentPage((p) => p - 1)} disabled={currentPage === 1}>
-                        <ChevronLeft />
+                        <ChevronLeft className="hover:text-primary" />
                     </button>
                     <div>
                         {Array.from({ length: totalPages }, (_, i) => (
@@ -65,7 +66,7 @@ export const ProjectsCard = () => {
                         ))}
                     </div>
                     <button onClick={() => setCurrentPage((p) => p + 1)}  disabled={currentPage === totalPages}>
-                        <ChevronRight />
+                        <ChevronRight className="hover:text-primary" />
                     </button>
                 </div>
             </div>

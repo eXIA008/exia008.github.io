@@ -11,7 +11,7 @@ export const ProjectSection = () => {
                 Featured<span className="text-primary"> Projects</span>
             </h2>
 
-            <p className="text-left text-muted-foreground mb-12">
+            <p className="text-left text-muted-foreground mb-12 leading-relaxed">
                 Here are some of my projects. Each project is my part of my learning progress
                 to have better understanding in web and software development.
             </p>

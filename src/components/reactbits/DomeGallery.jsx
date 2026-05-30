@@ -130,7 +130,9 @@ export default function DomeGallery({
   openedImageHeight = '400px',
   imageBorderRadius = '30px',
   openedImageBorderRadius = '30px',
-  grayscale = true
+  grayscale = true,
+  activeHoveredTech = null,
+  onHoverActive = null
 }) {
   const rootRef = useRef(null);
   const mainRef = useRef(null);
@@ -460,10 +462,32 @@ export default function DomeGallery({
       `;
 
       const originalImg = overlay.querySelector('img');
-      if (originalImg) {
+      const originalSvg = overlay.querySelector('svg');
+
+      if (originalSvg) {
+        const clonedSvg = originalSvg.cloneNode(true);
+        clonedSvg.style.cssText = 'width: 60%; height: 60%; margin: auto; display: block;';
+        animatingOverlay.style.display = 'flex';
+        animatingOverlay.style.alignItems = 'center';
+        animatingOverlay.style.justifyContent = 'center';
+        animatingOverlay.style.background = 'rgba(255, 255, 255, 0.07)';
+        animatingOverlay.style.border = '1px solid rgba(255, 255, 255, 0.15)';
+        animatingOverlay.style.backdropFilter = 'blur(10px)';
+        animatingOverlay.appendChild(clonedSvg);
+      } else if (originalImg) {
         const img = originalImg.cloneNode();
         img.style.cssText = 'width: 100%; height: 100%; object-fit: cover;';
         animatingOverlay.appendChild(img);
+      } else if (overlay.firstElementChild) {
+        const clonedChild = overlay.firstElementChild.cloneNode(true);
+        clonedChild.style.cssText = 'width: 60%; height: 60%; margin: auto; display: block;';
+        animatingOverlay.style.display = 'flex';
+        animatingOverlay.style.alignItems = 'center';
+        animatingOverlay.style.justifyContent = 'center';
+        animatingOverlay.style.background = 'rgba(255, 255, 255, 0.07)';
+        animatingOverlay.style.border = '1px solid rgba(255, 255, 255, 0.15)';
+        animatingOverlay.style.backdropFilter = 'blur(10px)';
+        animatingOverlay.appendChild(clonedChild);
       }
 
       overlay.remove();
@@ -603,14 +627,53 @@ export default function DomeGallery({
 
     const rawSrc = parent.dataset.src || el.querySelector('img')?.src || '';
     const rawAlt = parent.dataset.alt || el.querySelector('img')?.alt || '';
-    const img = document.createElement('img');
-    img.src = rawSrc;
-    img.alt = rawAlt;
-    img.style.width = '100%';
-    img.style.height = '100%';
-    img.style.objectFit = 'cover';
-    img.style.filter = grayscale ? 'grayscale(1)' : 'none';
-    overlay.appendChild(img);
+    const svgElement = el.querySelector('svg');
+
+    if (svgElement) {
+      const clonedSvg = svgElement.cloneNode(true);
+      clonedSvg.style.width = '60%';
+      clonedSvg.style.height = '60%';
+      clonedSvg.style.margin = 'auto';
+      clonedSvg.style.display = 'block';
+      clonedSvg.style.filter = grayscale ? 'grayscale(1)' : 'none';
+      clonedSvg.style.pointerEvents = 'none';
+
+      // Style overlay as flex centered and glassmorphic
+      overlay.style.display = 'flex';
+      overlay.style.alignItems = 'center';
+      overlay.style.justifyContent = 'center';
+      overlay.style.background = 'rgba(255, 255, 255, 0.07)';
+      overlay.style.border = '1px solid rgba(255, 255, 255, 0.15)';
+      overlay.style.backdropFilter = 'blur(10px)';
+      overlay.appendChild(clonedSvg);
+    } else if (rawSrc) {
+      const img = document.createElement('img');
+      img.src = rawSrc;
+      img.alt = rawAlt;
+      img.style.width = '100%';
+      img.style.height = '100%';
+      img.style.objectFit = 'cover';
+      img.style.filter = grayscale ? 'grayscale(1)' : 'none';
+      overlay.appendChild(img);
+    } else {
+      // General fallback to clone whatever child element is there (e.g. icon wrapper)
+      const firstChild = el.firstElementChild;
+      if (firstChild) {
+        const clonedChild = firstChild.cloneNode(true);
+        clonedChild.style.width = '60%';
+        clonedChild.style.height = '60%';
+        clonedChild.style.margin = 'auto';
+        clonedChild.style.display = 'block';
+        
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.background = 'rgba(255, 255, 255, 0.07)';
+        overlay.style.border = '1px solid rgba(255, 255, 255, 0.15)';
+        overlay.style.backdropFilter = 'blur(10px)';
+        overlay.appendChild(clonedChild);
+      }
+    }
     viewerRef.current.appendChild(overlay);
 
     const tx0 = tileR.left - frameR.left;
@@ -753,11 +816,29 @@ export default function DomeGallery({
       cursor: pointer;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      transition: transform 300ms;
       pointer-events: auto;
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+
+      transition: all 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+      transform: translateZ(0) scale(1);
     }
+    
+    .item__image:hover, .item__image.dg-highlighted {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: var(--color-primary, hsl(250, 65%, 65%));
+      box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.4), 
+                  0 8px 10px -6px rgba(139, 92, 246, 0.4),
+                  inset 0 0 12px rgba(255, 255, 255, 0.1);
+      transform: translateZ(20px) scale(1.08);
+    }
+
     .item__image--reference {
       position: absolute;
       inset: 10px;
@@ -765,13 +846,18 @@ export default function DomeGallery({
     }
 
     .dg-icon {
-      width: 60%;
-      height: 60%;
+      width: 55%;
+      height: 55%;
       display: block;
       pointer-events: none;
-      object-fit: cover;
-      filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
-      transition: filter 220ms ease, opacity 220ms ease, transform 220ms ease;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+      transition: all 300ms cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .item__image:hover .dg-icon, .item__image.dg-highlighted .dg-icon {
+      transform: scale(1.15);
+      filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.6)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
     }
   `;
 
@@ -800,53 +886,65 @@ export default function DomeGallery({
         >
           <div className="stage">
             <div ref={sphereRef} className="sphere">
-              {items.map((it, i) => (
-                <div
-                  key={`${it.x},${it.y},${i}`}
-                  className="sphere-item absolute m-auto"
-                  data-src={it.src}
-                  data-alt={it.alt}
-                  data-offset-x={it.x}
-                  data-offset-y={it.y}
-                  data-size-x={it.sizeX}
-                  data-size-y={it.sizeY}
-                  style={{
-                    ['--offset-x']: it.x,
-                    ['--offset-y']: it.y,
-                    ['--item-size-x']: it.sizeX,
-                    ['--item-size-y']: it.sizeY,
-                    top: '-999px',
-                    bottom: '-999px',
-                    left: '-999px',
-                    right: '-999px'
-                  }}
-                >
+              {items.map((it, i) => {
+                const isHighlighted = activeHoveredTech && (
+                  it.alt === activeHoveredTech || 
+                  it.alt?.toLowerCase() === activeHoveredTech.toLowerCase() ||
+                  (activeHoveredTech === 'golang' && it.alt === 'go') ||
+                  (activeHoveredTech === 'golang' && it.alt === 'golang')
+                );
+
+                return (
                   <div
-                    className="item__image absolute block overflow-hidden cursor-pointer transition-transform duration-300"
-                    role="button"
-                    tabIndex={0}
-                    aria-label={it.alt || 'Open image'}
-                    onClick={e => {
-                      if (draggingRef.current) return;
-                      if (movedRef.current) return;
-                      if (performance.now() - lastDragEndAt.current < 80) return;
-                      if (openingRef.current) return;
-                      openItemFromElement(e.currentTarget);
-                    }}
-                    onPointerUp={e => {
-                      if (e.pointerType !== 'touch') return;
-                      if (draggingRef.current) return;
-                      if (movedRef.current) return;
-                      if (performance.now() - lastDragEndAt.current < 80) return;
-                      if (openingRef.current) return;
-                      openItemFromElement(e.currentTarget);
-                    }}
+                    key={`${it.x},${it.y},${i}`}
+                    className="sphere-item absolute m-auto"
+                    data-src={it.src}
+                    data-alt={it.alt}
+                    data-offset-x={it.x}
+                    data-offset-y={it.y}
+                    data-size-x={it.sizeX}
+                    data-size-y={it.sizeY}
                     style={{
-                      inset: '10px',
-                      borderRadius: `var(--tile-radius, ${imageBorderRadius})`,
-                      backfaceVisibility: 'hidden'
+                      ['--offset-x']: it.x,
+                      ['--offset-y']: it.y,
+                      ['--item-size-x']: it.sizeX,
+                      ['--item-size-y']: it.sizeY,
+                      top: '-999px',
+                      bottom: '-999px',
+                      left: '-999px',
+                      right: '-999px'
                     }}
                   >
+                    <div
+                      className={`item__image absolute block overflow-hidden cursor-pointer transition-transform duration-300 ${
+                        isHighlighted ? 'dg-highlighted' : ''
+                      }`}
+                      role="button"
+                      tabIndex={0}
+                      aria-label={it.alt || 'Open image'}
+                      onMouseEnter={() => onHoverActive && onHoverActive(it.alt)}
+                      onMouseLeave={() => onHoverActive && onHoverActive(null)}
+                      onClick={e => {
+                        if (draggingRef.current) return;
+                        if (movedRef.current) return;
+                        if (performance.now() - lastDragEndAt.current < 80) return;
+                        if (openingRef.current) return;
+                        openItemFromElement(e.currentTarget);
+                      }}
+                      onPointerUp={e => {
+                        if (e.pointerType !== 'touch') return;
+                        if (draggingRef.current) return;
+                        if (movedRef.current) return;
+                        if (performance.now() - lastDragEndAt.current < 80) return;
+                        if (openingRef.current) return;
+                        openItemFromElement(e.currentTarget);
+                      }}
+                      style={{
+                        inset: '10px',
+                        borderRadius: `var(--tile-radius, ${imageBorderRadius})`,
+                        backfaceVisibility: 'hidden'
+                      }}
+                    >
                     {it.Icon ? (
                       React.createElement(it.Icon, { className: 'dg-icon', 'aria-hidden': true, style: { color: it.color } })
                     ) : it.icon ? (
@@ -864,7 +962,8 @@ export default function DomeGallery({
                     ) : null}
                   </div>
                 </div>
-              ))}
+              );
+            })}
             </div>
           </div>
 
