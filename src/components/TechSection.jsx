@@ -26,8 +26,6 @@ const SKILLS = [
   { label: "backend", related: ["nodejs", "mysql", "flask", "php", "go", "java", "python", "c++"] },
   { label: "mobile development", related: ["java", "react"] },
   { label: "development", related: ["js", "react", "html5", "tailwindcss", "nodejs", "vitejs", "python", "c++", "go", "java", "php"] },
-  { label: "code editing" },
-  { label: "extensions", related: ["js", "html5"] },
   { label: "responsive design", related: ["html5", "tailwindcss"] },
   { label: "typescript", related: ["typescript", "react"] },
   { label: "javascript", related: ["js", "react", "nodejs"] },
@@ -41,7 +39,6 @@ const SKILLS = [
   { label: "database integration", related: ["mysql", "nodejs", "php"] },
   { label: "android development", related: ["java"] },
   { label: "api consumption", related: ["flask", "nodejs", "react", "js"] },
-  { label: "c++ scripting", related: ["c++"] },
   { label: "go programming", related: ["go"] },
   { label: "java applications", related: ["java"] },
   { label: "php scripting", related: ["php", "mysql"] },
@@ -51,7 +48,7 @@ const SKILLS = [
 
 export const TechSection = () => {
   const [activeTech, setActiveTech] = useState(null);
-  const [selectedSkill, setSelectedSkill] = useState(null);
+  const [hoveredSkill, setHoveredSkill] = useState(null);
 
   const isTechHighlighted = (techName) => {
     if (activeTech) {
@@ -62,28 +59,15 @@ export const TechSection = () => {
       }
     }
 
-    if (selectedSkill !== null) {
-      const skill = SKILLS[selectedSkill];
-      if (skill && skill.related) {
-        if (Array.isArray(skill.related)) {
-          if (skill.related.includes(techName)) return true;
-        } else {
-          if (skill.related === techName) return true;
-        }
-      }
-    }
-
     return false;
   };
 
   const isSkillHighlighted = (skill, index) => {
-    if (selectedSkill === index) return true;
+    if (hoveredSkill === index) return true;
 
     if (activeTech && skill.related) {
       if (Array.isArray(activeTech)) {
-        if (Array.isArray(skill.related)) {
-          return activeTech.every(t => skill.related.includes(t));
-        }
+        return false;
       } else {
         if (Array.isArray(skill.related)) {
           return skill.related.includes(activeTech);
@@ -103,17 +87,7 @@ export const TechSection = () => {
     return tech ? tech.color : "";
   };
 
-  const handleSkillClick = (index) => {
-    if (SKILLS[index].related) {
-      if (selectedSkill === index) {
-        setSelectedSkill(null);
-      } else {
-        setSelectedSkill(index);
-      }
-    }
-  };
-
-  const hasActive = activeTech !== null || selectedSkill !== null;
+  const hasActive = activeTech !== null;
 
   return (
     <section id="toolkit" className="relative py-24 z-10 bg-transparent items-center justify-center overflow-hidden">
@@ -194,18 +168,19 @@ export const TechSection = () => {
             {SKILLS.map((skill, index) => {
               const isMatchingActive = isSkillHighlighted(skill, index);
               const skillColor = isMatchingActive ? getSkillColor(skill) : "";
-              const hasActive = activeTech !== null || selectedSkill !== null;
+              const hasActive = activeTech !== null;
 
               return (
                 <span
                   key={index}
-                  onClick={() => handleSkillClick(index)}
                   onMouseEnter={() => {
+                    setHoveredSkill(index);
                     if (skill.related) {
                       setActiveTech(skill.related);
                     }
                   }}
                   onMouseLeave={() => {
+                    setHoveredSkill(null);
                     setActiveTech(null);
                   }}
                   className={`text-base md:text-lg transition-all duration-300 select-none cursor-pointer font-sans tracking-tight leading-relaxed ${isMatchingActive
