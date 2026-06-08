@@ -39,7 +39,7 @@ export const Navbar = () => {
         const hashPath = location.href ?? ""
         const currentPath = location.pathname + hashPath
 
-        return currentPath === href
+        return currentPath === href + "/"
     }
 
     return (
