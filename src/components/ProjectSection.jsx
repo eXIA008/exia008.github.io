@@ -6,7 +6,7 @@ export const ProjectSection = () => {
     const maxStackCount = 5;
 
     return <section id="featured-projects" className="relative py-24 z-10 bg-transparent items-center justify-center">
-        <div className="container mx-auto max-w-5xl">
+        <div className="container mx-auto max-w-7xl">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-left">
                 Featured<span className="text-primary"> Projects</span>
             </h2>
