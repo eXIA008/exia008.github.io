@@ -15,7 +15,7 @@ export const projects = [
         image: "/projects/sikeyboard.png",
         stack: ["Java", "MySQL"],
         url: "https://github.com/eXIA008/siKeyboard",
-        featured: true,
+        featured: false,
     },
     {
         id: 3,
@@ -24,7 +24,7 @@ export const projects = [
         image: "/projects/blogger.png",
         stack: ["C++"],
         url: "https://github.com/eXIA008/blogger-manager",
-        featured: true,
+        featured: false,
     },
     {
         id: 4,
@@ -54,5 +54,23 @@ export const projects = [
         stack: ["Fuzzy", "Python", "Google Colab"],
         url: "https://github.com/eXIA008/fuzzy-evaluation",
         featured: false,
-    }
+    },
+    {
+        id: 7,
+        title: "Digi Money Manager",
+        desc: "An automatic Project Reimbursement Manager for employee.",
+        image: "/projects/digi-money-manager.png",
+        stack: ["NextJS", "Supabase", "PostgreSQL", "TailwindCSS", "VLM"],
+        url: "https://digi-money-manager-chi.vercel.app/",
+        featured: true,
+    },
+    {
+        id: 8,
+        title: "Macacino : PDF Translator",
+        desc: "An AI-powered PDF reader for English language learners.",
+        image: "/projects/macacino.png",
+        stack: ["Laravel", "Flutter", "Blade", "PostgreSQL", "TailwindCSS"],
+        url: "https://github.com/tissuedry/laravel_Macacino",
+        featured: true,
+    },
 ]

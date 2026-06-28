@@ -1,4 +1,4 @@
-# Logs
+
 logs
 *.log
 npm-debug.log*
@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 skills-lock.json
 .agents
+.claude

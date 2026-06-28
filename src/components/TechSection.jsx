@@ -48,11 +48,11 @@ export const TechSection = () => {
   return (
     <section id="toolkit" className="relative py-24 z-10 bg-transparent items-center justify-center overflow-hidden">
       <div className="container mx-auto max-w-7xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-left">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-left opacity-0 animate-fade-in [animation-delay:0.75s]">
           Current <span className="text-primary">Tools & Skills</span>
         </h2>
 
-        <p className="text-left text-muted-foreground mb-7 leading-relaxed">
+        <p className="text-left text-muted-foreground mb-7 leading-relaxed opacity-0 animate-fade-in [animation-delay:0.85s]">
           This is the current tools and language that i use to build my projects.
         </p>
 
@@ -70,7 +70,7 @@ export const TechSection = () => {
               }}
             />
 
-            <div className="grid grid-cols-4 gap-5 md:gap-6 justify-center place-items-center">
+            <div className="grid grid-cols-4 gap-5 md:gap-6 justify-center place-items-center opacity-0 animate-fade-in [animation-delay:0.95s]">
               {GRID_TECHS.map((tech) => {
                 const isHighlighted = isTechHighlighted(tech.name);
 
@@ -118,7 +118,7 @@ export const TechSection = () => {
             </div>
           </div>
 
-          <div className="md:col-span-6 lg:col-span-6 flex flex-wrap gap-x-6 justify-between text-justify py-8 max-w-110">
+          <div className="md:col-span-6 lg:col-span-6 flex flex-wrap gap-x-6 justify-between text-justify py-8 max-w-110 opacity-0  animate-fade-in [animation-delay:1.15s]">
             {SKILLS.map((skill, index) => {
               const isMatchingActive = isSkillHighlighted(skill, index);
               const skillColor = isMatchingActive ? getSkillColor(skill) : "";
