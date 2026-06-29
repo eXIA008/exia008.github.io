@@ -8,7 +8,7 @@ export const ProjectSection = () => {
     return <section id="featured-projects" className="relative py-24 z-10 bg-transparent items-center justify-center">
         <div className="container mx-auto max-w-7xl">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-left opacity-0 animate-fade-in [animation-delay:1.25s]">
-                Featured<span className="text-primary"> Projects</span>
+                Selected<span className="text-primary"> Projects</span>
             </h2>
 
             <p className="text-left text-muted-foreground mb-12 leading-relaxed opacity-0  animate-fade-in [animation-delay:1.35s]">
@@ -54,11 +54,11 @@ export const ProjectSection = () => {
                     return null;
                 })}
             </div>
-            <div className="text-center mt-12 opacity-0  animate-fade-in [animation-delay:1.55s]">
+            {/* <div className="text-center mt-12 opacity-0  animate-fade-in [animation-delay:1.55s]">
                 <a className="cosmic-button w-fit flex items-center mx-auto gap-2" href="/projects">
                     Check my other Projects <ArrowRight size={16} />
                 </a>
-            </div>
+            </div> */}
         </div>
 
     </section>

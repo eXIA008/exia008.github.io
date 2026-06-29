@@ -43,7 +43,7 @@ export const HeroSection = () => {
               <h1 className="opacity-0 animate-fade-in">Haloo,</h1>
               <h1 className="opacity-0 animate-fade-in [animation-delay:0.15s]">
                 I'm{" "}
-                <span className="text-primary opacity-0 animate-fade-in [animation-delay:0.15s]">
+                <span className="text-primary text-glow opacity-0 animate-fade-in [animation-delay:0.15s]">
                   Daisaq
                 </span>
               </h1>

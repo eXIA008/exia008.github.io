@@ -49,7 +49,7 @@ export default function CommandOrbit({
             className="absolute"
             style={{
               left: "50%",
-              top: "50%",
+              top: "52%",
               transform: open
                 ? `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`
                 : "translate(-50%, -50%)",
@@ -66,8 +66,15 @@ export default function CommandOrbit({
                 <Icon className="h-5 w-5 text-primary" />
               </div>
               {showLabels && (
-                <span className="whitespace-nowrap text-xs text-muted-foreground transition-colors duration-300 group-hover:text-foreground/90">
-                  {action.label}
+                <span className="grid text-xs overflow-hidden whitespace-nowrap text-foreground/90">
+                  <div className="col-start-1 row-start-1 translate-y-0 transform-gpu transition-transform duration-500
+                  group-hover:-translate-y-[110%]">
+                    {action.label}
+                  </div>
+                  <div className="col-start-1 row-start-1 translate-y-[110%] transform-gpu
+                  transition-transform duration-500 group-hover:translate-y-0">
+                    {action.username}
+                  </div>
                 </span>
               )}
             </div>
