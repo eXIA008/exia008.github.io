@@ -5,7 +5,8 @@ export const projects = [
         desc: "Reservation website for Telkomedika Clinic.",
         image: "/projects/telkomedika.png",
         stack: ["Flask", "HTML", "TailwindCSS"],
-        url: "https://github.com/eXIA008/Telkomedika-Online-Reservation",
+        url_github: "https://github.com/eXIA008/Telkomedika-Online-Reservation",
+        url_demo: "#",
         featured: true,
     },
     {
@@ -14,7 +15,8 @@ export const projects = [
         desc: "Simple e-commerce website for keyboards.",
         image: "/projects/sikeyboard.png",
         stack: ["Java", "MySQL"],
-        url: "https://github.com/eXIA008/siKeyboard",
+        url_github: "https://github.com/eXIA008/siKeyboard",
+        url_demo: "#",
         featured: false,
     },
     {
@@ -23,7 +25,8 @@ export const projects = [
         desc: "A terminal-based app to help manage blogs.",
         image: "/projects/blogger.png",
         stack: ["C++"],
-        url: "https://github.com/eXIA008/blogger-manager",
+        url_github: "https://github.com/eXIA008/blogger-manager",
+        url_demo: "#",
         featured: false,
     },
     {
@@ -32,7 +35,8 @@ export const projects = [
         desc: "Personal portfolio Website.",
         image: "/projects/web-portfolio.png",
         stack: ["React", "JavaScript", "TailwindCSS"],
-        url: "https://exia008.github.io/",
+        url_github: "#",
+        url_demo: "https://exia008.github.io/",
         featured: true,
     },
     {
@@ -42,7 +46,8 @@ export const projects = [
         \ on BMI using K-Nearest Neighbor and Genetic Algorithm.",
         image: "/projects/bmi-knn.png",
         stack: ["Machine Learning", "Python", "Google Colab"],
-        url: "https://github.com/eXIA008/bmi-with-knn",
+        url_github: "https://github.com/eXIA008/bmi-with-knn",
+        url_demo: "#",
         featured: false,
     },
     {
@@ -52,7 +57,8 @@ export const projects = [
         \ without library.",
         image: "/projects/fuzzy-heart.png",
         stack: ["Fuzzy", "Python", "Google Colab"],
-        url: "https://github.com/eXIA008/fuzzy-evaluation",
+        url_github: "https://github.com/eXIA008/fuzzy-evaluation",
+        url_demo: "#",
         featured: false,
     },
     {
@@ -61,7 +67,8 @@ export const projects = [
         desc: "An automatic Project Reimbursement Manager for employee.",
         image: "/projects/digi-money-manager.png",
         stack: ["NextJS", "Supabase", "PostgreSQL", "TailwindCSS", "VLM"],
-        url: "https://digi-money-manager-chi.vercel.app/",
+        url_github: "#",
+        url_demo: "https://digimoneymanager.vercel.app/",
         featured: true,
     },
     {
@@ -70,7 +77,8 @@ export const projects = [
         desc: "An AI-powered PDF reader for English language learners.",
         image: "/projects/macacino.png",
         stack: ["Laravel", "Flutter", "Blade", "PostgreSQL", "TailwindCSS"],
-        url: "https://github.com/tissuedry/laravel_Macacino",
+        url_github: "https://github.com/tissuedry/laravel_Macacino",
+        url_demo: "#",
         featured: true,
     },
 ]
