@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { cn } from "../lib/utils"
 import { Menu, X } from "lucide-react"
 import { useLocation } from "react-router-dom"
+import { openCommandOrbit } from "./navigations/CommandOrbit"
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -9,6 +10,15 @@ const navItems = [
   // { name: "Blogs", href: "/blogs" },
   { name: "Projects", href: "/projects" },
 ]
+
+const goHomeAndOpenOrbit = () => {
+  openCommandOrbit()
+  if (window.location.pathname !== "/") {
+    window.location.assign("/")
+  } else {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+}
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -63,6 +73,10 @@ export const Navbar = () => {
                   {item.name}
                 </a>
               ))}
+              <a href="/" onClick={(e) => { e.preventDefault(); goHomeAndOpenOrbit() }}
+                className={cn("text-foreground font-bold hover:text-primary duration-300")}>
+                Contact
+              </a>
             </div>
 
             {/* mobile nav */}
@@ -89,6 +103,10 @@ export const Navbar = () => {
               {item.name}
             </a>
           ))}
+          <a href="/" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); goHomeAndOpenOrbit() }}
+            className="text-foreground/80 hover:text-primary font-bold transition-all duration-300">
+            Contact
+          </a>
         </div>
       </div>
     </>

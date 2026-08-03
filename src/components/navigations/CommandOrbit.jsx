@@ -1,5 +1,16 @@
 import { useState, useRef, useEffect, useCallback } from "react"
 
+let orbitMounted = false
+let pendingOpen = false
+
+export function openCommandOrbit() {
+  if (orbitMounted) {
+    window.dispatchEvent(new CustomEvent("command-orbit:open"))
+  } else {
+    pendingOpen = true
+  }
+}
+
 export default function CommandOrbit({
   actions = [],
   radius = 130,
@@ -8,6 +19,20 @@ export default function CommandOrbit({
 }) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
+
+  useEffect(() => {
+    orbitMounted = true
+    if (pendingOpen) {
+      pendingOpen = false
+      setOpen(true)
+    }
+    const handler = () => setOpen(true)
+    window.addEventListener("command-orbit:open", handler)
+    return () => {
+      orbitMounted = false
+      window.removeEventListener("command-orbit:open", handler)
+    }
+  }, [])
 
   useEffect(() => {
     const handler = (e) => {
@@ -221,13 +246,29 @@ function GlobeButton({ open, onClick }) {
   }, [draw])
 
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="relative z-10 transition-all duration-500 hover:scale-110 active:scale-90"
-    >
-      <canvas ref={canvasRef} className="rounded-full block" />
-      <span className="sr-only">Open social links</span>
-    </button>
+    <div className="relative flex items-center justify-center">
+      <button
+        type="button"
+        onClick={onClick}
+        className="relative z-10 transition-all duration-500 hover:scale-110 active:scale-90"
+      >
+        <canvas ref={canvasRef} className="rounded-full block" />
+        <span className="sr-only">Open social links</span>
+      </button>
+
+      {/* Rotating "Click Me" hint around the globe */}
+      <svg
+        viewBox="0 0 120 120"
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 -ml-[53px] -mt-[52px] h-[104px] w-[104px] animate-spin [animation-duration:16s]"
+      >
+        <defs>
+          <path id="orbit-text-path" d="M 60,60 m -52,0 a 52,52 0 1,1 104,0 a 52,52 0 1,1 -104,0" />
+        </defs>
+        <text className="fill-foreground/70 text-[10px] font-semibold uppercase tracking-[0.2em]">
+          <textPath href="#orbit-text-path" textLength="327">• Click Me •• Click Me •• Click Me •</textPath>
+        </text>
+      </svg>
+    </div>
   )
 }

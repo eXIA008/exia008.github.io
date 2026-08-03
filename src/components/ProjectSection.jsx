@@ -25,52 +25,52 @@ export const ProjectSection = () => {
         {listProject.map((projects, key) => {
           if (key < maxProjectShown) {
             return (
-              <Reveal key={key} delay={0.1 * key} className="h-full">
-                <div className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover gradient-border flex flex-col">
-                <div className="h-48 overflow-hidden">
-                  <img src={projects.image} alt={projects.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                </div>
-                <div className="p-6 text-left flex flex-col flex-1">
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {projects.stack.map((stack, index) => {
-                      if (index < maxStackCount) {
-                        return (<span key={index} className="px-2 py-1 text-xs border font-medium rounded-full bg-secondary text-secondary-foreground">
-                          {stack}
-                        </span>)
-                      } else {
-                        return (<span key={index} className="px-2 py-1 text-xs border font-medium rounded-full bg-secondary text-secondary-foreground">
-                          ...
-                        </span>)
-                      }
-                    })}
+              <Reveal key={key} delay={0.1 * key}>
+                <div className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover gradient-border flex flex-col h-full">
+                  <div className="h-48 overflow-hidden">
+                    <img src={projects.image} alt={projects.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">
-                    {projects.title != "" ? projects.title : "Coming Soon"}
-                  </h3>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    {projects.desc}
-                  </p>
-                  <div className="mt-auto flex gap-6">
-                    {projects.url_github != "#" && (
-                      <a className="inline-block text-foreground/80 hover:text-primary transition-all duration-300"
-                        target="_blank" rel="noopener noreferrer" href={projects.url_github}>
-                        View Source
-                        <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
-                      </a>
-                    )}
-                    {projects.url_demo != "#" && projects.id != 4 && (
-                      <a className="inline-block text-foreground/80 hover:text-primary transition-all duration-300"
-                        target="_blank" rel="noopener noreferrer" href={projects.url_demo}>
-                        Live Demo
-                        <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
-                      </a>
-                    )}
-                    {projects.id == 4 && (
-                      <span className="inline-block text-foreground/80">You're Here!</span>
-                    )}
+                  <div className="p-6 text-left flex flex-col flex-1">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {projects.stack.map((stack, index) => {
+                        if (index < maxStackCount) {
+                          return (<span key={index} className="px-2 py-1 text-xs border font-medium rounded-full bg-secondary text-secondary-foreground">
+                            {stack}
+                          </span>)
+                        } else {
+                          return (<span key={index} className="px-2 py-1 text-xs border font-medium rounded-full bg-secondary text-secondary-foreground">
+                            ...
+                          </span>)
+                        }
+                      })}
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2">
+                      {projects.title != "" ? projects.title : "Coming Soon"}
+                    </h3>
+                    <p className="text-muted-foreground text-sm mb-4">
+                      {projects.desc}
+                    </p>
+                    <div className="mt-auto flex gap-6">
+                      {projects.url_github != "#" && (
+                        <a className="inline-block text-foreground/80 hover:text-primary transition-all duration-300"
+                          target="_blank" rel="noopener noreferrer" href={projects.url_github}>
+                          View Source
+                          <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
+                        </a>
+                      )}
+                      {projects.url_demo != "#" && projects.id != 4 && (
+                        <a className="inline-block text-foreground/80 hover:text-primary transition-all duration-300"
+                          target="_blank" rel="noopener noreferrer" href={projects.url_demo}>
+                          Live Demo
+                          <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
+                        </a>
+                      )}
+                      {projects.id == 4 && (
+                        <span className="inline-block text-foreground/80">You're Here!</span>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
               </Reveal>
             )
           }

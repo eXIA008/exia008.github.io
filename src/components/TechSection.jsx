@@ -125,8 +125,8 @@ export const TechSection = () => {
             </Reveal>
           </div>
 
-          <Reveal delay={0.2}>
-            <div className="md:col-span-6 lg:col-span-6 flex flex-wrap gap-x-6 justify-between text-justify py-8 max-w-110">
+          <Reveal delay={0.2} className="md:col-span-6 lg:col-span-6">
+            <div className="flex flex-wrap gap-6 justify-between text-justify py-8 max-w-110">
             {SKILLS.map((skill, index) => {
               const isMatchingActive = isSkillHighlighted(skill, index);
               const skillColor = isMatchingActive ? getSkillColor(skill) : "";
