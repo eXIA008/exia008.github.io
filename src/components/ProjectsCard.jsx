@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { projects } from "../data/projects"
+import { Reveal } from "./Reveal"
 
 export const ProjectsCard = () => {
   const maxStackCount = 5
@@ -16,14 +17,17 @@ export const ProjectsCard = () => {
   return (
     <div className="relative py-28 md:py-24 z-10 bg-transparent justify-center items-center">
       <div className="container mx-auto max-w-7xl">
-        <div className="text-left text-3xl md:text-4xl font-bold tracking-light mb-10">
-          <h1 className="text-foreground opacity-0 animate-fade-in">
-            My <span className="text-primary">Projects </span>Collection.
-          </h1>
-        </div>
+        <Reveal>
+          <div className="text-left text-3xl md:text-4xl font-bold tracking-light mb-10">
+            <h1 className="text-foreground">
+              My <span className="text-primary">Projects </span>Collection.
+            </h1>
+          </div>
+        </Reveal>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {currentProjects.map((projects, key) => (
-            <div key={key} className="group bg-card rounded-2xl overflow-hidden shadow-xs card-hover gradient-border flex flex-col h-full opacity-0 animate-fade-in" style={{ animationDelay: `${(key * 0.2) + 0.1}s` }}>
+            <Reveal key={key} delay={0.1 * key} className="h-full">
+              <div className="group bg-card rounded-2xl overflow-hidden shadow-xs card-hover gradient-border flex flex-col h-full">
               <div className="h-48 overflow-hidden shrink-0">
                 <img src={projects.image} alt={projects.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-103" />
               </div>
@@ -63,6 +67,7 @@ export const ProjectsCard = () => {
                 </div>
               </div>
             </div>
+            </Reveal>
           ))}
         </div>
         <div className="text-lg space-x-6 mt-16 flex flex-cols justify-center">
