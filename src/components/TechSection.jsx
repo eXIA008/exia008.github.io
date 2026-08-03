@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GRID_TECHS, SKILLS } from "../data/skillsTech"
 import StackIcon from "tech-stack-icons";
+import { Reveal } from "./Reveal";
 
 export const TechSection = () => {
   const [activeTech, setActiveTech] = useState(null);
@@ -48,13 +49,17 @@ export const TechSection = () => {
   return (
     <section id="toolkit" className="relative py-24 z-10 bg-transparent items-center justify-center overflow-hidden">
       <div className="container mx-auto max-w-7xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-left opacity-0 animate-fade-in [animation-delay:0.75s]">
-          Current <span className="text-primary">Tools & Skills</span>
-        </h2>
+        <Reveal>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-left">
+            Current <span className="text-primary">Tools & Skills</span>
+          </h2>
+        </Reveal>
 
-        <p className="text-left text-muted-foreground mb-7 leading-relaxed opacity-0 animate-fade-in [animation-delay:0.85s]">
-          This is the current tools and language that i use to build my projects.
-        </p>
+        <Reveal>
+          <p className="text-left text-muted-foreground mb-7 leading-relaxed">
+            This is the current tools and language that i use to build my projects.
+          </p>
+        </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           <div className="md:col-span-6 flex flex-col justify-center items-center overflow-hidden p-5 min-h-95 md:min-h-auto relative rounded-2xl">
@@ -70,7 +75,8 @@ export const TechSection = () => {
               }}
             />
 
-            <div className="grid grid-cols-4 gap-5 md:gap-6 justify-center place-items-center opacity-0 animate-fade-in [animation-delay:0.95s]">
+            <Reveal delay={0.1}>
+              <div className="grid grid-cols-4 gap-5 md:gap-6 justify-center place-items-center">
               {GRID_TECHS.map((tech) => {
                 const isHighlighted = isTechHighlighted(tech.name);
 
@@ -116,9 +122,11 @@ export const TechSection = () => {
                 );
               })}
             </div>
+            </Reveal>
           </div>
 
-          <div className="md:col-span-6 lg:col-span-6 flex flex-wrap gap-x-6 justify-between text-justify py-8 max-w-110 opacity-0  animate-fade-in [animation-delay:1.15s]">
+          <Reveal delay={0.2}>
+            <div className="md:col-span-6 lg:col-span-6 flex flex-wrap gap-x-6 justify-between text-justify py-8 max-w-110">
             {SKILLS.map((skill, index) => {
               const isMatchingActive = isSkillHighlighted(skill, index);
               const skillColor = isMatchingActive ? getSkillColor(skill) : "";
@@ -153,6 +161,7 @@ export const TechSection = () => {
               );
             })}
           </div>
+          </Reveal>
         </div>
       </div>
     </section>
