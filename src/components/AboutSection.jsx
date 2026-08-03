@@ -1,14 +1,18 @@
 import { Code, Briefcase, Download } from "lucide-react"
+import { Reveal } from "./Reveal"
 
 export const AboutSection = () => {
-    return <section id="about" className="relative py-24 z-10 bg-transparent items-center justify-center"> 
+    return <section id="about" className="relative py-24 z-10 bg-transparent items-center justify-center">
         <div className="container mx-auto max-w-5xl">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-left">
-                Still About<span className="text-primary"> Me</span>
-            </h2>
+            <Reveal>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-left">
+                    Still About<span className="text-primary"> Me</span>
+                </h2>
+            </Reveal>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-                <div className="space-y-6 text-left max-w-xl">
+                <Reveal>
+                    <div className="space-y-6 text-left max-w-xl">
                     <h3 className="text-2xl font-semibold">Passionate Fullstack Developer</h3>
                     <p className="text-muted-foreground">
                         Actually i wasn't suppose to be here, but here i'am in the programming world. Currently learning
@@ -31,8 +35,10 @@ export const AboutSection = () => {
                         </a>
                     </div>
                 </div>
+                </Reveal>
 
-                <div className="grid grid-cols-1 gap-6">
+                <Reveal delay={0.15}>
+                    <div className="grid grid-cols-1 gap-6">
                     <div className="gradient-border p-6 card-hover">
                         <div className="flex items-start gap-4">
                             {/* Ini buat logonya */}
@@ -61,7 +67,8 @@ export const AboutSection = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                    </div>
+                </Reveal>
             </div>
         </div>
     </section>
