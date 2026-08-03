@@ -1,15 +1,14 @@
-import { ArrowRight } from "lucide-react"
 import { projects } from "../data/projects"
-import { cn } from "../lib/utils"
 
 export const ProjectSection = () => {
-
-  const maxStackCount = 5;
+  const listProject = [...projects].reverse();
+  const maxProjectShown = 4;
+  const maxStackCount = 4;
 
   return <section id="featured-projects" className="relative py-24 z-10 bg-transparent items-center justify-center">
     <div className="container mx-auto max-w-7xl">
       <h2 className="text-3xl md:text-4xl font-bold mb-4 text-left opacity-0 animate-fade-in [animation-delay:1.25s]">
-        Selected<span className="text-primary"> Projects</span>
+        Lastest<span className="text-primary"> Projects</span>
       </h2>
 
       <p className="text-left text-muted-foreground mb-12 leading-relaxed opacity-0  animate-fade-in [animation-delay:1.35s]">
@@ -18,14 +17,14 @@ export const ProjectSection = () => {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {projects.map((projects, key) => {
-          if (projects.featured) {
+        {listProject.map((projects, key) => {
+          if (key < maxProjectShown) {
             return (
-              <div key={key} className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover gradient-border opacity-0 animate-fade-in [animation-delay:1.45s]">
+              <div key={key} className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover gradient-border opacity-0 animate-fade-in [animation-delay:1.45s] flex flex-col">
                 <div className="h-48 overflow-hidden">
                   <img src={projects.image} alt={projects.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                 </div>
-                <div className="p-6 text-left">
+                <div className="p-6 text-left flex flex-col flex-1">
                   <div className="flex flex-wrap gap-2 mb-4">
                     {projects.stack.map((stack, index) => {
                       if (index < maxStackCount) {
@@ -45,16 +44,25 @@ export const ProjectSection = () => {
                   <p className="text-muted-foreground text-sm mb-4">
                     {projects.desc}
                   </p>
-                  <a className="inline-block text-foreground/80 hover:text-primary transition-all duration-300"
-                    target={projects.id == 4 ? "" : "_blank"} href={projects.url_github}
-                  >
-                    {(projects.url_github != "#" && projects.id != 4) ? "View Project" : ""}
-                    <span class="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
-                  </a>
-                  <a className="inline-block text-foreground/80 hover:text-primary transition-all duration-300" target={projects.id == 4 ? "" : "_blank"} href={projects.id == 4 ? "#" : projects.url_demo} >
-                    {(projects.url_demo != "#" && projects.id != 4) ? "View Demo" : projects.id == 4 ? "You're Here!" : ""}
-                    <span class="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
-                  </a>
+                  <div className="mt-auto flex gap-6">
+                    {projects.url_github != "#" && (
+                      <a className="inline-block text-foreground/80 hover:text-primary transition-all duration-300"
+                        target="_blank" rel="noopener noreferrer" href={projects.url_github}>
+                        View Source
+                        <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
+                      </a>
+                    )}
+                    {projects.url_demo != "#" && projects.id != 4 && (
+                      <a className="inline-block text-foreground/80 hover:text-primary transition-all duration-300"
+                        target="_blank" rel="noopener noreferrer" href={projects.url_demo}>
+                        Live Demo
+                        <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
+                      </a>
+                    )}
+                    {projects.id == 4 && (
+                      <span className="inline-block text-foreground/80">You're Here!</span>
+                    )}
+                  </div>
                 </div>
               </div>
             )

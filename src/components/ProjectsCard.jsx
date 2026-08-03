@@ -42,17 +42,24 @@ export const ProjectsCard = () => {
                   })}
                 </div>
                 <h3 className="text-xl font-semibold mb-2">
-                  <a href={(projects.url != "#" && projects.id != 4) ? "View Project" : projects.id == 4 ? "You're Here!" : ""}> {projects.title != "" ? projects.title : "Coming Soon"} </a>
+                  {projects.title != "" ? projects.title : "Coming Soon"}
                 </h3>
-                <div className="mt-auto">
-                  <a className="inline-block text-foreground/80 font-semibold hover:text-primary hover: transition-all duration-300" target={projects.id == 4 ? "" : "_blank"} href={projects.url_github} >
-                    {(projects.url_github != "#" && projects.id != 4) ? "View Project" : ""}
-                    <span class="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
-                  </a>
-                  <a className="inline-block text-foreground/80 font-semibold hover:text-primary hover: transition-all duration-300" target={projects.id == 4 ? "" : "_blank"} href={projects.id == 4 ? "#" : projects.url_demo} >
-                    {(projects.url_demo != "#" && projects.id != 4) ? "View Demo" : projects.id == 4 ? "You're Here!" : ""}
-                    <span class="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
-                  </a>
+                <div className="mt-auto flex gap-6">
+                  {projects.url_github != "#" && (
+                    <a className="inline-block text-foreground/80 font-semibold hover:text-primary transition-all duration-300" target="_blank" rel="noopener noreferrer" href={projects.url_github} >
+                      View Source
+                      <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
+                    </a>
+                  )}
+                  {projects.url_demo != "#" && projects.id != 4 && (
+                    <a className="inline-block text-foreground/80 font-semibold hover:text-primary transition-all duration-300" target="_blank" rel="noopener noreferrer" href={projects.url_demo} >
+                      Live Demo
+                      <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
+                    </a>
+                  )}
+                  {projects.id == 4 && (
+                    <span className="inline-block text-foreground/80 font-semibold">You're Here!</span>
+                  )}
                 </div>
               </div>
             </div>
