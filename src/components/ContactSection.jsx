@@ -2,6 +2,7 @@ import { Bot, Github, Instagram, Linkedin, Mail, MapPin, Send } from "lucide-rea
 import { cn } from "../lib/utils";
 import { useToast } from "../hooks/use-toast";
 import { useState } from "react";
+import { Reveal } from "./Reveal";
 
 export const ContactSection = () => {
 
@@ -24,16 +25,21 @@ export const ContactSection = () => {
   return (
     <section id="contact" className="py-24 px-4 relative bg-secondary/30">
       <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Get In <span className="text-primary"> Touch</span>
-        </h2>
+        <Reveal>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+            Get In <span className="text-primary"> Touch</span>
+          </h2>
+        </Reveal>
 
-        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          Have project in mind or wants to learn together? Feel free to reach out.
-          I'm always open to discussing new opportunities. 
-        </p>
+        <Reveal>
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            Have project in mind or wants to learn together? Feel free to reach out.
+            I'm always open to discussing new opportunities.
+          </p>
+        </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <Reveal>
             <div className="space-y-8 ">
                 <h3 className="text-2xl font-semibold mb-6"> Contact Information</h3>
                 <div className="space-y-6 justify-center"> 
@@ -80,6 +86,8 @@ export const ContactSection = () => {
                   </div>
                 </div>
             </div>
+            </Reveal>
+            <Reveal delay={0.15}>
             <div className="bg-card p-8 rounded-lg shadow-xs" onSubmit={handleSubmit}>
               <h3 className="text-2xl font-semibold mb-6"> Send a Message</h3>
 
@@ -112,6 +120,7 @@ export const ContactSection = () => {
                 </button>
               </form>
             </div>
+            </Reveal>
         </div>
       </div>
     </section>
