@@ -1,4 +1,5 @@
 import { projects } from "../data/projects"
+import { Reveal } from "./Reveal"
 
 export const ProjectSection = () => {
   const listProject = [...projects].reverse();
@@ -7,20 +8,25 @@ export const ProjectSection = () => {
 
   return <section id="featured-projects" className="relative py-24 z-10 bg-transparent items-center justify-center">
     <div className="container mx-auto max-w-7xl">
-      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-left opacity-0 animate-fade-in [animation-delay:1.25s]">
-        Lastest<span className="text-primary"> Projects</span>
-      </h2>
+      <Reveal>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-left">
+          Lastest<span className="text-primary"> Projects</span>
+        </h2>
+      </Reveal>
 
-      <p className="text-left text-muted-foreground mb-12 leading-relaxed opacity-0  animate-fade-in [animation-delay:1.35s]">
-        Here are some of my projects. Each project is my part of my learning progress
-        to have better understanding in web and software development.
-      </p>
+      <Reveal>
+        <p className="text-left text-muted-foreground mb-12 leading-relaxed">
+          Here are some of my projects. Each project is my part of my learning progress
+          to have better understanding in web and software development.
+        </p>
+      </Reveal>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {listProject.map((projects, key) => {
           if (key < maxProjectShown) {
             return (
-              <div key={key} className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover gradient-border opacity-0 animate-fade-in [animation-delay:1.45s] flex flex-col">
+              <Reveal key={key} delay={0.1 * key} className="h-full">
+                <div className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover gradient-border flex flex-col">
                 <div className="h-48 overflow-hidden">
                   <img src={projects.image} alt={projects.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                 </div>
@@ -65,6 +71,7 @@ export const ProjectSection = () => {
                   </div>
                 </div>
               </div>
+              </Reveal>
             )
           }
           return null;
