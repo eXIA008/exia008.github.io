@@ -10,14 +10,13 @@ export const ProjectSection = () => {
     <div className="container mx-auto max-w-7xl">
       <Reveal>
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-left">
-          Lastest<span className="text-primary"> Projects</span>
+          Latest<span className="text-primary"> Projects</span>
         </h2>
       </Reveal>
 
       <Reveal>
         <p className="text-left text-muted-foreground mb-12 leading-relaxed">
-          Here are some of my projects. Each project is my part of my learning progress
-          to have better understanding in web and software development.
+          Here are some of my latest projects that i contribut.
         </p>
       </Reveal>
 
@@ -77,11 +76,6 @@ export const ProjectSection = () => {
           return null;
         })}
       </div>
-      {/* <div className="text-center mt-12 opacity-0  animate-fade-in [animation-delay:1.55s]">
-                <a className="cosmic-button w-fit flex items-center mx-auto gap-2" href="/projects">
-                    Check my other Projects <ArrowRight size={16} />
-                </a>
-            </div> */}
     </div>
 
   </section>
